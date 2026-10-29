@@ -274,9 +274,34 @@ alert('Preview record added in this browser only. It is not saved online or a re
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
   );
+console.log("Supabase client initialized");
+document.getElementById('registerForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
 
-  console.log("Supabase client initialized");
+  const name = document.getElementById('registerName').value.trim();
+  const email = document.getElementById('registerEmail').value.trim();
+  const password = document.getElementById('registerPassword').value;
 
+  if (password.length < 6) {
+    alert('Password must be at least 6 characters.');
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.signUp({
+    email: email,
+    password: password,
+    options: {
+      data: { full_name: name }
+    }
+  });
+
+  if (error) {
+    alert('Registration failed: ' + error.message);
+    return;
+  }
+
+  alert('Registration submitted! Check your email to confirm your account.');
+});
 </script>
 </body>
 </html>
