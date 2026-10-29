@@ -71,10 +71,12 @@ th{color:var(--muted)}
 <button id="loginTab" onclick="showAuth('login')">Log in</button>
 </div>
 <form id="registerForm">
-<div class="field"><label>Full name</label><input id="registerName" required placeholder="Your full name" autocomplete="name"></div>
-<div class="field"><label>US phone number</label><input required type="tel" placeholder="+1 555 123 4567"></div>
-<div class="field"><label>Email address</label><input id="registerEmail" required type="email" placeholder="email"></div>
-<div class="field"><label>Password (at least 10 characters)</label><input required type="password" minlength="10" autocomplete="new-password"></div>
+
+<div class="field"><label>Full name</label><input id="registerName" name="full_name" required placeholder="Your full name" autocomplete="name"></div>
+<div class="field"><label>US phone number</label><input id="registerPhone" name="phone" required type="tel" placeholder="+1 555 123 4567" autocomplete="tel"></div>
+<div class="field"><label>Email address</label><input id="registerEmail" name="email" required type="email" placeholder="email" autocomplete="email"></div>
+<div class="field"><label>Password (at least 10 characters)</label><input id="registerPassword" name="password" required type="password" minlength="10" autocomplete="new-password"></div>
+  
 <p class="fine">Account requests require review. Do not use a real password on this preview.</p>
 <button class="primary" style="width:100%">Request account approval</button>
 </form>
