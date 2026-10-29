@@ -264,6 +264,30 @@ history.appendChild(tr);
 });
 alert('Preview record added in this browser only. It is not saved online or a real trade.');
 }
+<!-- Supabase connection -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFxYnNnYnF3YmdkZHB1cGViYXVqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyNDUzODgsImV4cCI6MjEwODgyMTM4OH0.daYZ3-BfBgy1px2qq38SE2_t1mAb31qoolbf2wzHduk";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_ORi2BONODp_WJHpX_tdKQA_ifZ9J4QH";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  console.log("Supabase client initialized");
+</script>
+sb_publishable_ORi2BONODp_WJHpX_tdKQA_ifZ9J4QH
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "PASTE_YOUR_PROJECT_URL";
+  const SUPABASE_PUBLISHABLE_KEY = "PASTE_YOUR_SB_PUBLISHABLE_KEY";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 </script>
 </body>
 </html>
