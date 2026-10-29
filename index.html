@@ -1,181 +1,238 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tokenpokettrading | Trading Dashboard</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tokenpokettrading</title>
 <style>
+:root{--bg:#0b1020;--panel:#111a2d;--line:#263550;--text:#eef3ff;--muted:#9baac4;--green:#35d49a;--red:#ff6b7b;--gold:#e8bd67}
 *{box-sizing:border-box}
-body{margin:0;background:#0b1020;color:#f4f7ff;font-family:Arial,sans-serif}
-header{background:#111a30;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.logo{font-size:22px;font-weight:bold;color:#75a7ff}
-.tag{font-size:12px;color:#9fe3c0;border:1px solid #28684e;padding:6px 9px;border-radius:20px}
-main{max-width:1000px;margin:auto;padding:28px 18px}
-h1{font-size:30px}
-p{color:#b8c5dc;line-height:1.6}
-.panel{background:#141e34;border:1px solid #293958;border-radius:14px;padding:22px;margin:18px 0}
-.label{color:#aab9d0;font-size:14px}
-.balance{font-size:34px;font-weight:bold;margin:12px 0;color:#fff}
-input{width:100%;padding:13px;background:#0b1020;border:1px solid #405170;color:white;border-radius:8px;font-size:16px;margin:8px 0 12px}
-button{cursor:pointer;border:0;border-radius:8px;padding:12px 15px;font-size:15px;font-weight:bold}
-.primary{background:#3979f6;color:white}
-.secondary{background:#263653;color:white}
-.rates{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}
-.rate{background:#101a2d;border:1px solid #354665;color:#dce7ff}
-.rate.active{background:#2459b7;border-color:#8db8ff}
-.result{font-size:24px;color:#8fe0b1;font-weight:bold;margin:12px 0}
-.small{font-size:12px;color:#9eacc4}
-.history{padding:12px 0;border-bottom:1px solid #293958}
-footer{text-align:center;padding:25px;color:#8e9bb1}
-@media(max-width:520px){.rates{grid-template-columns:repeat(2,minmax(0,1fr))}h1{font-size:25px}}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Arial,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0;border-radius:9px;padding:10px 14px;font-weight:bold}
+.shell{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+.sidebar{padding:22px 15px;background:#0d1426;border-right:1px solid var(--line)}
+.brand{font-size:20px;font-weight:bold;margin-bottom:25px}
+.brand span{color:var(--gold)}
+.nav{display:grid;gap:8px}
+.nav button{background:transparent;color:var(--muted);text-align:left}
+.nav button.active,.nav button:hover{background:#16223a;color:white}
+.main{min-width:0}
+.top{padding:18px 25px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px}
+.content{padding:25px;max-width:1400px;margin:auto}
+h1{font-size:27px;margin:0 0 5px}
+h2{font-size:18px}
+.muted,.fine{color:var(--muted)}
+.fine{font-size:12px}
+.grid{display:grid;gap:15px}
+.cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px;min-width:0}
+.section{margin-top:22px}
+.metric{font-size:27px;font-weight:bold}
+.coin{font-weight:bold;font-size:18px}
+.price{font-size:25px;font-weight:bold;margin-top:15px}
+.pill{display:inline-block;border-radius:20px;padding:5px 9px;background:#202d44;color:#d5e0f3;font-size:12px}
+.notice{background:#2a2418;color:#f0d99d;border:1px solid #725e30;border-radius:10px;padding:12px;font-size:13px}
+.field{display:grid;gap:6px;margin:12px 0}
+label{font-size:13px;color:var(--muted)}
+input,select{width:100%;padding:11px;border:1px solid var(--line);background:#0c1425;color:white;border-radius:8px}
+.choices{display:flex;flex-wrap:wrap;gap:7px}
+.choices button{background:#1b2940;color:white;border:1px solid var(--line);font-size:12px}
+.choices button.selected{border-color:var(--gold);color:var(--gold)}
+.primary{background:var(--gold);color:#17130a}
+.trade-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}
+.buy{background:#1b8c69;color:white}.sell{background:#b74255;color:white}
+.chart{height:240px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;text-align:center;color:var(--muted);background:linear-gradient(#101b30,#0e1728);padding:15px}
+.chart-layout{grid-template-columns:1.3fr 1fr}
+.hidden{display:none!important}
+.auth-wrap{min-height:100vh;display:grid;place-items:center;padding:20px}
+.auth{width:min(440px,100%);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px}
+.tabs{display:flex;gap:8px;margin:17px 0}
+.tabs button{flex:1;background:#1b2940;color:white}
+.tabs button.active{background:var(--gold);color:#17130a}
+table{border-collapse:collapse;width:100%;min-width:520px}
+th,td{text-align:left;padding:11px;border-bottom:1px solid var(--line);font-size:13px}
+th{color:var(--muted)}
+.table-wrap{overflow:auto}
+.positive{color:var(--green)}.negative{color:var(--red)}
+@media(max-width:800px){.shell{grid-template-columns:1fr}.sidebar{border:0;border-bottom:1px solid var(--line)}.nav{grid-template-columns:repeat(3,1fr)}.nav button{text-align:center;font-size:12px;padding:9px 3px}.cards,.chart-layout{grid-template-columns:1fr}.content{padding:16px}.top{padding:15px}}
 </style>
 </head>
 <body>
-<header>
-  <div class="logo">Tokenpokettrading</div>
-  <span class="tag">PRACTICE ACCOUNT</span>
-</header>
-<main>
-  <h1>Trading Dashboard</h1>
-  <p>Explore percentage scenarios and practice calculating possible trading outcomes.</p>
+<div id="authView" class="auth-wrap">
+<div class="auth">
+<div class="brand">Tokenpocket<span>trading</span></div>
+<h1 id="authTitle">Create your account</h1>
+<div class="muted">Request access to the platform.</div>
+<div class="tabs">
+<button id="registerTab" class="active" onclick="showAuth('register')">Register</button>
+<button id="loginTab" onclick="showAuth('login')">Log in</button>
+</div>
+<form id="registerForm" onsubmit="event.preventDefault();alert('Preview only: secure registration and admin approval are not connected yet.');">
+<div class="field"><label>Full name</label><input required placeholder="Your full name" autocomplete="name"></div>
+<div class="field"><label>US phone number</label><input required type="tel" placeholder="+1 555 123 4567"></div>
+<div class="field"><label>Email address</label><input required type="email" placeholder="you@example.com"></div>
+<div class="field"><label>Password (at least 10 characters)</label><input required type="password" minlength="10" autocomplete="new-password"></div>
+<p class="fine">Account requests require review. Do not use a real password on this preview.</p>
+<button class="primary" style="width:100%">Request account approval</button>
+</form>
+<form id="loginForm" class="hidden" onsubmit="event.preventDefault();alert('Login is not connected yet.');">
+<div class="field"><label>Email address</label><input required type="email"></div>
+<div class="field"><label>Password</label><input required type="password"></div>
+<button class="primary" style="width:100%">Log in</button>
+</form>
+<p class="fine">Preview interface only. No real accounts, deposits, or trades are active. Balances and outcomes have no cash value.</p>
+</div>
+</div>
 
-  <section class="panel">
-    <div class="label">Virtual account balance</div>
-    <div class="balance" id="balance">$1,000.00</div>
-    <p class="small">Practice funds only. No real money is held or transferred.</p>
-    <label for="deposit">Add virtual funds ($)</label>
-    <input id="deposit" type="number" min="1" max="1000000" placeholder="Enter amount">
-    <button class="primary" onclick="addFunds()">Add Practice Funds</button>
-    <span id="depositMessage" class="small"></span>
-  </section>
+<div id="appView" class="shell hidden">
+<aside class="sidebar">
+<div class="brand">Tokenpocket<span>trading</span></div>
+<div class="nav">
+<button class="active" data-page="home" onclick="go('home')">⌂ Home</button>
+<button data-page="market" onclick="go('market')">▥ Market</button>
+<button data-page="trade" onclick="go('trade')">↗ Trade</button>
+<button data-page="profile" onclick="go('profile')">◉ Profile</button>
+<button data-page="admin" onclick="go('admin')">⚙ Admin</button>
+</div>
+<p class="fine">Preview interface. Live prices and real trading are not connected.</p>
+</aside>
+<main class="main">
+<header class="top"><div><strong id="pageLabel">Home</strong><br><span class="fine">Trading dashboard preview</span></div><span class="pill">Preview only</span></header>
+<div class="content">
 
-  <section class="panel">
-    <h2>Choose a percentage</h2>
-    <p>Select one of the seven scenarios.</p>
-    <div class="rates" id="rates">
-      <button class="rate active" data-rate="5">5%</button>
-      <button class="rate" data-rate="7">7%</button>
-      <button class="rate" data-rate="9">9%</button>
-      <button class="rate" data-rate="12">12%</button>
-      <button class="rate" data-rate="15">15%</button>
-      <button class="rate" data-rate="20">20%</button>
-      <button class="rate" data-rate="25">25%</button>
-    </div>
+<section id="homePage">
+<h1>Market overview</h1><p class="muted">Explore Silver, Gold and Platinum.</p>
+<div class="grid cards">
+<div class="card"><div class="coin">Silver · Ag</div><div class="price">—</div><span class="muted">Live price not connected</span></div>
+<div class="card"><div class="coin">Gold · Au</div><div class="price">—</div><span class="muted">Live price not connected</span></div>
+<div class="card"><div class="coin">Platinum · Pt</div><div class="price">—</div><span class="muted">Live price not connected</span></div>
+</div>
+<div class="section notice">This is a preview. Market data, member accounts, approvals, and trading require secure backend and provider integrations.</div>
+</section>
 
-    <label for="amount">Practice amount ($)</label>
-    <input id="amount" type="number" min="1" placeholder="Example: 100" value="100">
+<section id="marketPage" class="hidden">
+<h1>Markets</h1><p class="muted">Choose a market category.</p>
+<div class="choices" id="assetChoices">
+<button class="selected" onclick="selectAsset(this,'Crypto')">CRYPTO</button>
+<button onclick="selectAsset(this,'Metals')">METALS</button>
+<button onclick="selectAsset(this,'Stocks')">STOCKS</button>
+<button onclick="selectAsset(this,'Forex')">FOREX</button>
+<button onclick="selectAsset(this,'Oil')">OIL</button>
+</div>
+<div class="card section"><h2 id="assetTitle">Crypto</h2><div class="chart">Live charts will appear after a market-data provider is connected.</div></div>
+</section>
 
-    <div class="label">Illustrative change at <span id="chosenRate">5</span>%</div>
-    <div class="result" id="profit">$5.00</div>
-    <div class="label">Example total if the selected change occurred</div>
-    <div class="balance" id="total">$105.00</div>
-    <p class="small">Mathematical illustration only, not a forecast, guaranteed return, or live trade.</p>
-    <button class="primary" onclick="saveScenario()">Save Practice Scenario</button>
-  </section>
+<section id="tradePage" class="hidden">
+<h1>Trade</h1><p class="muted">Order ticket preview</p>
+<div class="grid chart-layout">
+<div class="card"><h2>Market chart</h2><div class="chart">Connect a market-data provider to show live prices.</div></div>
+<div class="card">
+<h2>Trade settings</h2>
+<div class="field"><label>Amount (USD)</label><input id="tradeAmount" type="number" min="1" placeholder="Enter amount"></div>
+<div class="field"><label>Percentage setting</label><div class="choices">
+<button onclick="pick(this)">5%</button><button onclick="pick(this)">7%</button><button onclick="pick(this)">9%</button><button onclick="pick(this)">12%</button><button onclick="pick(this)">15%</button><button onclick="pick(this)">20%</button><button onclick="pick(this)">25%</button>
+</div></div>
+<div class="field"><label>Time interval</label><div class="choices"><button class="selected" onclick="pick(this)">1m</button><button onclick="pick(this)">2m</button><button onclick="pick(this)">5m</button></div></div>
+<div class="notice">These settings do not predict returns. No live order is submitted.</div>
+<div class="trade-actions"><button class="buy" onclick="alert('Real trading is not connected.')">Buy</button><button class="sell" onclick="alert('Real trading is not connected.')">Sell</button></div>
+</div></div>
+</section>
 
-  <section class="panel">
-    <h2>Practice history</h2>
-    <div id="history"><p>No scenarios saved yet.</p></div>
-    <button class="secondary" onclick="clearHistory()">Clear History</button>
-  </section>
-</main>
-<footer>Tokenpokettrading · Educational trading simulator</footer>
+<section id="profilePage" class="hidden">
+<h1>Profile</h1><p class="muted">Account summary and preview history</p>
+<div class="grid cards section">
+<div class="card"><div class="muted">Simulated balance</div><div class="metric">$0.00</div></div>
+<div class="card"><div class="muted">Wins</div><div class="metric positive" id="profileWins">0</div></div>
+<div class="card"><div class="muted">Losses</div><div class="metric negative" id="profileLosses">0</div></div>
+<div class="card"><div class="muted">Neutral</div><div class="metric" id="profileNeutral">0</div></div>
+<div class="card"><div class="muted">Total recorded</div><div class="metric" id="profileTotal">0</div></div>
+</div>
+<div class="card section"><h2>Trade history</h2><div class="table-wrap"><table><thead><tr><th>Date</th><th>Market</th><th>Type</th><th>Amount</th><th>Outcome</th></tr></thead><tbody id="historyRows"><tr><td colspan="5">No records yet.</td></tr></tbody></table></div></div>
+</section>
 
+<section id="adminPage" class="hidden">
+<h1>Admin dashboard</h1><p class="muted">Local preview controls only</p>
+<div class="notice">Admin changes are not saved to a server and cannot approve real members. A secure backend and admin authentication are required.</div>
+<div class="grid chart-layout section">
+<div class="card"><h2>Member approvals</h2><div class="field"><label>Member email</label><input id="adminEmail" type="email" placeholder="member@example.com"></div><div class="choices"><button onclick="adminNotice('approve')">Approve member</button><button onclick="adminNotice('reject')">Reject member</button></div></div>
+<div class="card"><h2>Add preview outcome</h2>
+<div class="field"><label>Member email</label><input id="recordEmail" type="email" placeholder="member@example.com"></div>
+<div class="field"><label>Market</label><select id="recordMarket"><option>Silver</option><option>Gold</option><option>Platinum</option><option>Crypto</option><option>Stocks</option><option>Forex</option><option>Oil</option></select></div>
+<div class="field"><label>Amount (display only)</label><input id="recordAmount" type="number" min="0" placeholder="0.00"></div>
+<div class="field"><label>Outcome</label><select id="recordOutcome"><option>Win</option><option>Loss</option><option>Neutral</option></select></div>
+<button class="primary" style="width:100%" onclick="previewRecord()">Add preview record</button>
+</div></div>
+<div class="card section"><h2>Preview log</h2><div class="table-wrap"><table><thead><tr><th>Time</th><th>Member</th><th>Market</th><th>Amount</th><th>Outcome</th></tr></thead><tbody id="adminRows"><tr><td colspan="5">No records yet.</td></tr></tbody></table></div></div>
+</section>
+
+</div></main></div>
 <script>
-let balance = 1000;
-let selectedRate = 5;
-let history = [];
-
-const money = n => "$" + n.toLocaleString("en-US", {
-  minimumFractionDigits: 2, maximumFractionDigits: 2
+function showAuth(which){
+document.getElementById('authView').classList.remove('hidden');
+document.getElementById('appView').classList.add('hidden');
+const reg=which==='register';
+document.getElementById('registerForm').classList.toggle('hidden',!reg);
+document.getElementById('loginForm').classList.toggle('hidden',reg);
+document.getElementById('registerTab').classList.toggle('active',reg);
+document.getElementById('loginTab').classList.toggle('active',!reg);
+document.getElementById('authTitle').textContent=reg?'Create your account':'Welcome back';
+}
+function go(page){
+document.getElementById('authView').classList.add('hidden');
+document.getElementById('appView').classList.remove('hidden');
+['home','market','trade','profile','admin'].forEach(p=>{
+document.getElementById(p+'Page').classList.toggle('hidden',p!==page);
+document.querySelector('[data-page="'+p+'"]').classList.toggle('active',p===page);
 });
-
-function updateBalance() {
-  document.getElementById("balance").textContent = money(balance);
+document.getElementById('pageLabel').textContent=page[0].toUpperCase()+page.slice(1);
 }
-
-function calculate() {
-  const amount = Number(document.getElementById("amount").value) || 0;
-  const change = amount * selectedRate / 100;
-  document.getElementById("chosenRate").textContent = selectedRate;
-  document.getElementById("profit").textContent =
-    (change >= 0 ? "+" : "") + money(change);
-  document.getElementById("total").textContent = money(amount + change);
+function selectAsset(btn,name){
+document.querySelectorAll('#assetChoices button').forEach(b=>b.classList.remove('selected'));
+btn.classList.add('selected');
+document.getElementById('assetTitle').textContent=name;
 }
-
-document.querySelectorAll(".rate").forEach(button => {
-  button.addEventListener("click", () => {
-    selectedRate = Number(button.dataset.rate);
-    document.querySelectorAll(".rate").forEach(b => b.classList.remove("active"));
-    button.classList.add("active");
-    calculate();
-  });
+function pick(btn){
+btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+btn.classList.add('selected');
+}
+let previewTrades=[];
+function adminNotice(action){
+alert((action==='approve'?'Approval':'Rejection')+' is a preview only. No member account is changed.');
+}
+function previewRecord(){
+const email=document.getElementById('recordEmail').value.trim();
+if(!email){alert('Enter a member email first.');return;}
+const market=document.getElementById('recordMarket').value;
+const outcome=document.getElementById('recordOutcome').value;
+const amount=Number(document.getElementById('recordAmount').value||0);
+previewTrades.unshift({time:new Date().toLocaleString(),email,market,outcome,amount});
+const adminRows=document.getElementById('adminRows');
+adminRows.innerHTML='';
+previewTrades.forEach(t=>{
+const tr=document.createElement('tr');
+[t.time,t.email,t.market,'$'+t.amount.toFixed(2),t.outcome].forEach(v=>{
+const td=document.createElement('td');td.textContent=v;tr.appendChild(td);
 });
-
-document.getElementById("amount").addEventListener("input", calculate);
-
-function addFunds() {
-  const field = document.getElementById("deposit");
-  const amount = Number(field.value);
-  const message = document.getElementById("depositMessage");
-
-  if (!Number.isFinite(amount) || amount <= 0 || amount > 1000000) {
-    message.textContent = " Enter a valid amount up to $1,000,000.";
-    return;
-  }
-
-  balance += amount;
-  updateBalance();
-  field.value = "";
-  message.textContent = " Virtual funds added.";
+adminRows.appendChild(tr);
+});
+const counts={Win:0,Loss:0,Neutral:0};
+previewTrades.forEach(t=>counts[t.outcome]++);
+document.getElementById('profileWins').textContent=counts.Win;
+document.getElementById('profileLosses').textContent=counts.Loss;
+document.getElementById('profileNeutral').textContent=counts.Neutral;
+document.getElementById('profileTotal').textContent=previewTrades.length;
+const history=document.getElementById('historyRows');history.innerHTML='';
+previewTrades.forEach(t=>{
+const tr=document.createElement('tr');
+[t.time,t.market,'Preview','$'+t.amount.toFixed(2),t.outcome].forEach(v=>{
+const td=document.createElement('td');td.textContent=v;tr.appendChild(td);
+});
+history.appendChild(tr);
+});
+alert('Preview record added in this browser only. It is not saved online or a real trade.');
 }
-
-function saveScenario() {
-  const amount = Number(document.getElementById("amount").value);
-  if (!Number.isFinite(amount) || amount <= 0 || amount > 1000000) {
-    alert("Please enter a valid practice amount.");
-    return;
-  }
-
-  history.unshift({
-    rate: selectedRate,
-    amount: amount,
-    change: amount * selectedRate / 100,
-    time: new Date().toLocaleString()
-  });
-  renderHistory();
-}
-
-function renderHistory() {
-  const el = document.getElementById("history");
-  if (!history.length) {
-    el.innerHTML = "<p>No scenarios saved yet.</p>";
-    return;
-  }
-  el.replaceChildren();
-  history.forEach(item => {
-    const row = document.createElement("div");
-    row.className = "history";
-    const title = document.createElement("strong");
-    title.textContent = item.rate + "% scenario · " + money(item.amount);
-    const detail = document.createElement("p");
-    detail.textContent = "Illustrative change: +" + money(item.change);
-    const time = document.createElement("div");
-    time.className = "small";
-    time.textContent = item.time;
-    row.append(title, detail, time);
-    el.appendChild(row);
-  });
-}
-
-function clearHistory() {
-  history = [];
-  renderHistory();
-}
-
-updateBalance();
-calculate();
 </script>
 </body>
 </html>
