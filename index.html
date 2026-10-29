@@ -80,7 +80,19 @@ th{color:var(--muted)}
 <p class="fine">Account requests require review. Do not use a real password on this preview.</p>
 <button class="primary" style="width:100%">Request account approval</button>
 </form>
-<form id="loginForm" class="hidden" onsubmit="event.preventDefault();alert('Login is not connected yet.');">
+<form id="logi
+<form id="loginForm" class="hidden">
+  <div class="field">
+    <label>Email address</label>
+    <input id="loginEmail" name="email" type="email" required autocomplete="email">
+  </div>
+  <div class="field">
+    <label>Password</label>
+    <input id="loginPassword" name="password" type="password" required autocomplete="current-password">
+  </div>
+  <button class="primary" type="submit" style="width:100%">Log in</button>
+</form>
+
 <div class="field"><label>Email </label><input required type="email"></div>
 <div class="field"><label>Password</label><input id="registerPassword" required type="password"></div>
 <button class="primary" style="width:100%">Log in</button>
