@@ -302,21 +302,36 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     return;
   }
 
-  const { error } = await supabaseClient.auth.signUp({
-    email: email,
-    password: password,
-    options: {
-      data: { full_name: name }
-    }
-  });
-
-  if (error) {
-    alert('Registration failed: ' + error.message);
-    return;
+  
+const { data, error } = await supabaseClient.auth.signUp({
+  email: email,
+  password: password,
+  options: {
+    data: { full_name: name }
   }
-
-  alert('Registration submitted! Check your email to confirm your account.');
 });
+
+if (error) {
+  alert('Registration failed: ' + error.message);
+  return;
+}
+
+if (data.user && data.session) {
+  const { error: profileError } = await supabaseClient
+    .from('member_profiles')
+    .insert({
+      id: data.user.id,
+      email: email,
+      full_name: name,
+      approval_status: 'pending'
+    });
+
+  if (profileError) {
+    alert('Account created, but profile save failed: ' + profileError.message);
+    return;
+  }}
+
+alert('Registration submitted! Check your email to confirm your account. Your profile will be pending approval.');
 </script>
 </body>
 </html>
