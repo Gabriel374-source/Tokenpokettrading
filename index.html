@@ -2,142 +2,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tokenpokettrading | Airdrop Rewards</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1020;
-      color: white;
-    }
-    header {
-      padding: 22px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #111a30;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .logo { font-size: 23px; font-weight: bold; color: #70a5ff; }
-    header a { color: white; text-decoration: none; }
-    .hero {
-      text-align: center;
-      padding: 75px 20px;
-      background: linear-gradient(135deg, #152c57, #26194b);
-    }
-    .hero h1 { font-size: clamp(32px, 6vw, 52px); margin: 0 0 18px; }
-    .hero p { color: #d0d9ef; line-height: 1.7; }
-    .search {
-      margin-top: 24px;
-      padding: 14px;
-      width: min(100%, 420px);
-      border: 1px solid #6378a7;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-    main { max-width: 1050px; margin: auto; padding: 35px 20px; }
-    .heading { text-align: center; margin-bottom: 25px; }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: #141e34;
-      border: 1px solid #293958;
-      padding: 24px;
-      border-radius: 16px;
-    }
-    .card h3 { color: #8cb6ff; }
-    .tag { color: #a8e9cb; font-size: 13px; }
-    .btn {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 11px 16px;
-      background: #3878f5;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-    }
-    .notice {
-      color: #cbd5e1;
-      font-size: 14px;
-      line-height: 1.7;
-      margin-top: 30px;
-    }
-    footer {
-      padding: 25px;
-      text-align: center;
-      color: #9ba9c2;
-      background: #111a30;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tokenpokettrading | Trading Dashboard</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:#f4f7ff;font-family:Arial,sans-serif}
+header{background:#111a30;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-size:22px;font-weight:bold;color:#75a7ff}
+.tag{font-size:12px;color:#9fe3c0;border:1px solid #28684e;padding:6px 9px;border-radius:20px}
+main{max-width:1000px;margin:auto;padding:28px 18px}
+h1{font-size:30px}
+p{color:#b8c5dc;line-height:1.6}
+.panel{background:#141e34;border:1px solid #293958;border-radius:14px;padding:22px;margin:18px 0}
+.label{color:#aab9d0;font-size:14px}
+.balance{font-size:34px;font-weight:bold;margin:12px 0;color:#fff}
+input{width:100%;padding:13px;background:#0b1020;border:1px solid #405170;color:white;border-radius:8px;font-size:16px;margin:8px 0 12px}
+button{cursor:pointer;border:0;border-radius:8px;padding:12px 15px;font-size:15px;font-weight:bold}
+.primary{background:#3979f6;color:white}
+.secondary{background:#263653;color:white}
+.rates{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}
+.rate{background:#101a2d;border:1px solid #354665;color:#dce7ff}
+.rate.active{background:#2459b7;border-color:#8db8ff}
+.result{font-size:24px;color:#8fe0b1;font-weight:bold;margin:12px 0}
+.small{font-size:12px;color:#9eacc4}
+.history{padding:12px 0;border-bottom:1px solid #293958}
+footer{text-align:center;padding:25px;color:#8e9bb1}
+@media(max-width:520px){.rates{grid-template-columns:repeat(2,minmax(0,1fr))}h1{font-size:25px}}
+</style>
 </head>
 <body>
-  <header>
-    <div class="logo">Tokenpokettrading</div>
-    <a href="#campaigns">Explore rewards</a>
-  </header>
+<header>
+  <div class="logo">Tokenpokettrading</div>
+  <span class="tag">PRACTICE ACCOUNT</span>
+</header>
+<main>
+  <h1>Trading Dashboard</h1>
+  <p>Explore percentage scenarios and practice calculating possible trading outcomes.</p>
 
-  <section class="hero">
-    <h1>Discover Crypto Rewards</h1>
-    <p>Explore airdrop opportunities and learn how to participate safely.</p>
-    <input class="search" id="search"
-      placeholder="Search campaigns..."
-      aria-label="Search campaigns">
+  <section class="panel">
+    <div class="label">Virtual account balance</div>
+    <div class="balance" id="balance">$1,000.00</div>
+    <p class="small">Practice funds only. No real money is held or transferred.</p>
+    <label for="deposit">Add virtual funds ($)</label>
+    <input id="deposit" type="number" min="1" max="1000000" placeholder="Enter amount">
+    <button class="primary" onclick="addFunds()">Add Practice Funds</button>
+    <span id="depositMessage" class="small"></span>
   </section>
 
-  <main id="campaigns">
-    <h2 class="heading">Explore Campaigns</h2>
-    <div class="cards" id="cards">
-      <article class="card">
-        <span class="tag">DEMO CAMPAIGN</span>
-        <h3>Community Rewards</h3>
-        <p>Learn about community participation and reward eligibility.</p>
-        <p>Reward: To be announced</p>
-        <button class="btn" onclick="alert('This is a demo. No real reward is offered yet.')">View details</button>
-      </article>
-
-      <article class="card">
-        <span class="tag">DEMO CAMPAIGN</span>
-        <h3>Learning Quest</h3>
-        <p>Explore educational activities about blockchain technology.</p>
-        <p>Reward: To be announced</p>
-        <button class="btn" onclick="alert('This is a demo. No real reward is offered yet.')">View details</button>
-      </article>
-
-      <article class="card">
-        <span class="tag">DEMO CAMPAIGN</span>
-        <h3>New User Rewards</h3>
-        <p>See how a new-user campaign could be presented.</p>
-        <p>Reward: To be announced</p>
-        <button class="btn" onclick="alert('This is a demo. No real reward is offered yet.')">View details</button>
-      </article>
+  <section class="panel">
+    <h2>Choose a percentage</h2>
+    <p>Select one of the seven scenarios.</p>
+    <div class="rates" id="rates">
+      <button class="rate active" data-rate="5">5%</button>
+      <button class="rate" data-rate="7">7%</button>
+      <button class="rate" data-rate="9">9%</button>
+      <button class="rate" data-rate="12">12%</button>
+      <button class="rate" data-rate="15">15%</button>
+      <button class="rate" data-rate="20">20%</button>
+      <button class="rate" data-rate="25">25%</button>
     </div>
 
-    <p class="notice">
-      Safety notice: These are sample campaigns, not verified offers.
-      Never share your wallet recovery phrase or private keys.
-      Check official project websites before participating.
-    </p>
-  </main>
+    <label for="amount">Practice amount ($)</label>
+    <input id="amount" type="number" min="1" placeholder="Example: 100" value="100">
 
-  <footer>Tokenpokettrading · Crypto education and rewards</footer>
+    <div class="label">Illustrative change at <span id="chosenRate">5</span>%</div>
+    <div class="result" id="profit">$5.00</div>
+    <div class="label">Example total if the selected change occurred</div>
+    <div class="balance" id="total">$105.00</div>
+    <p class="small">Mathematical illustration only, not a forecast, guaranteed return, or live trade.</p>
+    <button class="primary" onclick="saveScenario()">Save Practice Scenario</button>
+  </section>
 
-  <script>
-    const search = document.getElementById('search');
-    search.addEventListener('input', function () {
-      document.querySelectorAll('.card').forEach(function (card) {
-        card.style.display = card.innerText.toLowerCase()
-          .includes(search.value.toLowerCase()) ? '' : 'none';
-      });
-    });
-  </script>
+  <section class="panel">
+    <h2>Practice history</h2>
+    <div id="history"><p>No scenarios saved yet.</p></div>
+    <button class="secondary" onclick="clearHistory()">Clear History</button>
+  </section>
+</main>
+<footer>Tokenpokettrading · Educational trading simulator</footer>
+
+<script>
+let balance = 1000;
+let selectedRate = 5;
+let history = [];
+
+const money = n => "$" + n.toLocaleString("en-US", {
+  minimumFractionDigits: 2, maximumFractionDigits: 2
+});
+
+function updateBalance() {
+  document.getElementById("balance").textContent = money(balance);
+}
+
+function calculate() {
+  const amount = Number(document.getElementById("amount").value) || 0;
+  const change = amount * selectedRate / 100;
+  document.getElementById("chosenRate").textContent = selectedRate;
+  document.getElementById("profit").textContent =
+    (change >= 0 ? "+" : "") + money(change);
+  document.getElementById("total").textContent = money(amount + change);
+}
+
+document.querySelectorAll(".rate").forEach(button => {
+  button.addEventListener("click", () => {
+    selectedRate = Number(button.dataset.rate);
+    document.querySelectorAll(".rate").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    calculate();
+  });
+});
+
+document.getElementById("amount").addEventListener("input", calculate);
+
+function addFunds() {
+  const field = document.getElementById("deposit");
+  const amount = Number(field.value);
+  const message = document.getElementById("depositMessage");
+
+  if (!Number.isFinite(amount) || amount <= 0 || amount > 1000000) {
+    message.textContent = " Enter a valid amount up to $1,000,000.";
+    return;
+  }
+
+  balance += amount;
+  updateBalance();
+  field.value = "";
+  message.textContent = " Virtual funds added.";
+}
+
+function saveScenario() {
+  const amount = Number(document.getElementById("amount").value);
+  if (!Number.isFinite(amount) || amount <= 0 || amount > 1000000) {
+    alert("Please enter a valid practice amount.");
+    return;
+  }
+
+  history.unshift({
+    rate: selectedRate,
+    amount: amount,
+    change: amount * selectedRate / 100,
+    time: new Date().toLocaleString()
+  });
+  renderHistory();
+}
+
+function renderHistory() {
+  const el = document.getElementById("history");
+  if (!history.length) {
+    el.innerHTML = "<p>No scenarios saved yet.</p>";
+    return;
+  }
+  el.replaceChildren();
+  history.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "history";
+    const title = document.createElement("strong");
+    title.textContent = item.rate + "% scenario · " + money(item.amount);
+    const detail = document.createElement("p");
+    detail.textContent = "Illustrative change: +" + money(item.change);
+    const time = document.createElement("div");
+    time.className = "small";
+    time.textContent = item.time;
+    row.append(title, detail, time);
+    el.appendChild(row);
+  });
+}
+
+function clearHistory() {
+  history = [];
+  renderHistory();
+}
+
+updateBalance();
+calculate();
+</script>
 </body>
 </html>
