@@ -168,6 +168,36 @@ th{color:var(--muted)}
 <div class="card section"><h2>Preview log</h2><div class="table-wrap"><table><thead><tr><th>Time</th><th>Member</th><th>Market</th><th>Amount</th><th>Outcome</th></tr></thead><tbody id="adminRows"><tr><td colspan="5">No records yet.</td></tr></tbody></table></div></div>
 </section>
 
+
+<section id="supportPage" class="hidden">
+  <h1>Contact Owner Support</h1>
+  <p class="muted">Need help? Send a message to the Tokenpokettrading owner.</p>
+  <div class="card section" style="max-width:650px">
+    
+<form id="supportForm" action="https://formsubmit.co/bekelemeskerem63@gmail.com" method="POST">
+  <input type="hidden" name="subject" value="New Tokenpokettrading Support Message">
+
+      <div class="field">
+        <label for="supportName">Your name</label>
+        <input id="supportName" required placeholder="Your full name">
+      </div>
+      <div class="field">
+        <label for="supportEmail">Your email</label>
+        <input id="supportEmail" type="email" required placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label for="supportSubject">Subject</label>
+        <input id="supportSubject" required placeholder="How can we help?">
+      </div>
+      <div class="field">
+        <label for="supportMessage">Message</label>
+        <textarea id="supportMessage" required rows="6" style="width:100%;padding:11px;border:1px solid var(--line);background:#0c1425;color:white;border-radius:8px" placeholder="Write your message"></textarea>
+      </div>
+      <button class="primary" type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
 </div></main></div>
 <script>
 function showAuth(which){
@@ -183,7 +213,7 @@ document.getElementById('authTitle').textContent=reg?'Create your account':'Welc
 function go(page){
 document.getElementById('authView').classList.add('hidden');
 document.getElementById('appView').classList.remove('hidden');
-['home','market','trade','profile','admin'].forEach(p=>{
+['home','market','trade','profile','admin','support'].forEach(p=>{
 document.getElementById(p+'Page').classList.toggle('hidden',p!==page);
 document.querySelector('[data-page="'+p+'"]').classList.toggle('active',p===page);
 });
